@@ -1,5 +1,4 @@
 require "sinatra"
-require "sinatra/namespace"
 require "sinatra/reloader" if development?
 require "bcrypt"
 require "json"
@@ -8,7 +7,7 @@ class User
   def self.get(user_id)
     user = DB.get("users", {id: user_id})
     {
-      user_id: user_id,
+      id: user_id,
       username: user[:username],
       bio: user[:bio]
     }
@@ -16,7 +15,12 @@ class User
 
   def self.authenticate(params)
     user = DB.get("users", {id: params[:user_id]})
-    user[:password] == params[:password]
+    
+    if user[:password] == params[:password]
+      return self.get(user[:id])
+    end
+
+    nil
   end
   
   def self.post(params)
@@ -54,22 +58,39 @@ class API < Sinatra::Base
   end
 
   before do
-    @user = User.get(session[:user_id]))
+    @user = User.get(session[:user][:id]))
+    content_type 'application/json'
   end
 
-  get "/" do
-    "hello anon"
+  get "/profile", :auth => :user do
+    User.get(params[:user_id]).to_json
   end
 
-  get "/protected", :auth => :user do
-    "Hello, #{@user.name}"
+  get "/posts", :auth => :user do
+    DB.get("posts").to_json
+  end
+
+  post "/posts" :auth => :user do
+    return 201 if User.post(params)
+
+    500
+  end
+
+  get "/comments", :auth => :user do
+    DB.get("comments", {id: params[:post_id]}).to_json
+  end
+
+  post "/comments", :auth => :user do
+    return 201 if User.comment(params)
+
+    500
   end
 
   post "/login" do
-    session[:user_id] = User.authenticate(params).id
+    session[:user] = User.authenticate(params)
   end
 
   post "/logout" do
-    session[:user_id] = nil
+    session[:user] = nil
   end
 end
