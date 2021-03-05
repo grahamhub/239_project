@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="./public/stylesheets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <nav>
+    <form>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="inputUsername">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="inputPassword">
+      <input type="submit" value="login">
+    </form>
+  </nav>
+
+  <h1 id="title">This is a blog!</h1>
+  <p id="loggedOutMessage">Log in to see posts and comments</p>
+
+  <div id="content">
+    <ul>
+    </ul>
+  </div>
+
+  <form id="post-form">
+    <input type="email" name="Email" id="email">
+    <input type="sumbit" value="Post" id="btnPost">
+  </form>
+
+  <script id="posts" type="text/x-handlebars">
+      {{#each posts}}
+      {{> post}}
+      {{/each}}
+  </script>
+
+  <script id="post" type="text/x-handlebars">
+    <li>
+      <p class="content-user">{{username}}</p>
+      <p class="content-text">{{content}}</p>
+      <ul class="comments">
+        {{#each comments}}
+        {{> comment}}
+        {{/each}}
+      </ul>
+    </li>
+  </script>
+
+  <script id="comment" type="text/x-handlebars">
+    <li>{{username}}: {{comment}}</li>
+  </script>
+
+  <script src="./public/javascript/main.js"></script>
+</body>
+</html>
