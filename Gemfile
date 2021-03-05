@@ -2,5 +2,8 @@ source "https://rubygems.org"
 
 gem "sinatra"
 gem "sinatra-contrib"
-gem "handlebars-source"
 gem "bcrypt"
+
+group :production do
+  gem "puma"
+end
