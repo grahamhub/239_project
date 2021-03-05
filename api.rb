@@ -4,22 +4,34 @@ require "sinatra/reloader" if development?
 require "bcrypt"
 require "json"
 
-configure do
-  enable :sessions
-  set :session_secret, 'some crazy secret!'
-end
+class User; end
 
-get "/" do
-  'This is an api! What are you doing here???'
-end
+class API < Sinatra::Base
+  set :sessions => true
 
-namespace '/api/v1' do
-  before do
-    content_type 'application/json'
+  helpers do
+    def is_user?
+      @user != nil
+    end
   end
 
-  get '/posts' do
-    temp_posts = {post_id: 1, content: "Some post", author: "Some user"}
-    temp_posts.to_json
+  before do
+    @user = User.get(session[:user_id]))
+  end
+
+  get "/" do
+    "hello anon"
+  end
+
+  get "/protected", :auth => :user do
+    "Hello, #{@user.name}"
+  end
+
+  post "/login" do
+    session[:user_id] = User.authenticate(params).id
+  end
+
+  post "/logout" do
+    session[:user_id] = nil
   end
 end
