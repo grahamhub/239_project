@@ -1,6 +1,7 @@
 CREATE TABLE users (
   id serial PRIMARY KEY,
   username text NOT NULL UNIQUE,
+  bio text,
   password text NOT NULL
 );
 
