@@ -30,4 +30,4 @@ let postsTemplate  = Handlebars.compile($('#posts').html());
 Handlebars.registerPartial('post', $('#post').html());
 Handlebars.registerPartial('comment', $('#comment').html());
 
-$('#content ul').append(postsTemplate({ posts: posts }));
+$('div.container').append(postsTemplate({ posts: posts }));
