@@ -9,15 +9,6 @@
   <link rel="stylesheet" href="./public/stylesheets/main.css">
 </head>
 <body>
-  <!--nav>
-    <form>
-      <label for="username">Username</label>
-      <input type="text" name="username" id="inputUsername">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="inputPassword">
-      <input type="submit" value="login">
-    </form>
-  </nav-->
   <div class="container min-100">
     <div class="row align-items-center min-100">
       <div class="col">
@@ -37,43 +28,70 @@
         </div>
       </div>
     </div>
+
+    <div class="row justify-content-center post">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header">
+            New Post
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <div class="input-group mb-3">
+                <textarea class="form-control"></textarea>
+              </div>
+              <div class="input-group justify-content-end">
+                <button class="btn btn-secondary mr-1">Cancel</button>
+                <button class="btn btn-primary">Submit</button>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!--h1 id="title">This is a blog!</h1>
-  <p id="loggedOutMessage">Log in to see posts and comments</p>
-
-  <div id="content">
-    <ul>
-    </ul>
-  </div>
-
-  <form id="post-form">
-    <input type="email" name="Email" id="email">
-    <input type="sumbit" value="Post" id="btnPost">
-  </form>
-
-  <script id="posts" type="text/x-handlebars">
-      {{#each posts}}
-      {{> post}}
-      {{/each}}
+  
+  <script type="text/x-handlebars" id="posts" src="public/javascript/templates/posts.js">
+    {{#each posts}}
+    {{> post}}
+    {{/each}}
   </script>
-
-  <script id="post" type="text/x-handlebars">
-    <li>
-      <p class="content-user">{{username}}</p>
-      <p class="content-text">{{content}}</p>
-      <ul class="comments">
-        {{#each comments}}
-        {{> comment}}
-        {{/each}}
-      </ul>
+  <script type="text/x-handlebars" id="post" src="public/javascript/templates/post.js">
+    <div class="row justify-content-center post">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header">
+            {{username}}
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{content}}</p>
+            </blockquote>
+          </div>
+          <ul class="list-group list-group-flush">
+            {{#each comments}}
+            {{> comment}}
+            {{/each}}
+            <li class="list-group-item list-group-item-secondary">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Add comment">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">Submit</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-handlebars" id="comment" src="public/javascript/templates/comment.js">
+    <li class="list-group-item list-group-item-secondary">
+      <span class="badge badge-secondary">{{username}}</span>
+      {{comment}}
     </li>
   </script>
-
-  <script id="comment" type="text/x-handlebars">
-    <li>{{username}}: {{comment}}</li>
-  </script-->
-
   <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
